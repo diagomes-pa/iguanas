@@ -1,11 +1,11 @@
 function v = setFundVars(Ts_, T_)
   # Configures the fundamental variables.
 
-   v.Ts = Ts_;
-   v.Fs = 1/Ts_;
-   v.T = T_;
+   v.Ts = Ts_; % Time sampling
+   v.Fs = 1/Ts_; % Frequency sampling
+   v.T = T_; % Simulation time
    t_tmp = 0 : Ts_ : T_ - Ts_;
-   v.t = transpose(t_tmp);
-   v.N = length(v.t);
+   v.t = transpose(t_tmp); % Time axis
+   v.N = length(v.t); % Number of samples
   
 endfunction

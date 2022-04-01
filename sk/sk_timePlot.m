@@ -1,4 +1,4 @@
-function sk_timePlot(sig, tit, leg, time_gran)
+function sk_timePlot(sig, leg, time_gran)
   
   # time_gran: representa a granularidade do tempo, se é contínuo ou discreto. 
   # recebe um vetor que strings, c ou d, para sinais de tempo contínuo ou discreto,

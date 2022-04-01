@@ -1,4 +1,4 @@
-function [b, a] = lowPassFilter(M, f_cut)
+function [b, a] = digproc_lowPassFilter(M, f_cut)
 % Implementa um filtro FIR com janela de Hamming.
 % M: ordem do filtro.
 % f_cut: frequência de corte
