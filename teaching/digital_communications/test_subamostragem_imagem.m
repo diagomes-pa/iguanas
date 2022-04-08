@@ -12,4 +12,4 @@ x_dec2 = imresize(x,1/2);
 x_dec4 = imresize(x_dec2,1/2);
 x_dec8 = imresize(x_dec4,1/2);
 
-imshow(x_dec2);
+imshow(x_dec8);

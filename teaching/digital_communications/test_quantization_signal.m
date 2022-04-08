@@ -1,8 +1,8 @@
-function test_antialiasing_filter()
+function test_quantization_signal()
   
   %% Configura as variáveis fundamentais
   global v;
-  v = setFundVars(0.001, 1);
+  v = setFundVars(0.001, 10);
   
   staticSim(@runSim, 2)
  
@@ -16,23 +16,23 @@ function runSim(curr_val)
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Condiguração de Variáveis
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
-  dec_factor = 2;  
-  f1 = 50;
-  f2 = 450;
+   
+  P = 1;
+  f_cut = 300;
+  b = 14;
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Processamento de sinal
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  s = src_sinusoid(1, f1, 0) + src_sinusoid(1, f2, 0);
-  s_dec = decimate(s, dec_factor);
-  s_down = downsample(s, dec_factor);
+  %s = src_filtNoise(P, f_cut);
+  s = src_sinusoid(1, 10, 0);
+  [s_q,integer_codeword,levels] = digproc_quantizer(s,b);
+  e = s - s_q;
   
-  S = abs(fft(s));  
-  S_DEC = fft(s_dec);
-  S_DOWN = fft(s_down);
+  sk_timePlot([s, s_q, e], {"s", "s_q", "e"}, ["d", "d", "d"]);
   
-  sk_freqSubPlot({S, S_DEC, S_DOWN}, {"S", "S_DEC", "S_DOWN"}, {500, 250, 250}, 1);
-    
+  P_e = mean(e.^2)
+  P_e_est = 1/(3*(2^b)^2)
+  
 end

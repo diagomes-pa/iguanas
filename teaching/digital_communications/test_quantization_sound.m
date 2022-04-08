@@ -1,8 +1,8 @@
-function test_antialiasing_filter()
+function test_quantization_sound()
   
   %% Configura as variáveis fundamentais
   global v;
-  v = setFundVars(0.001, 1);
+  v = setFundVars(0.001, 20);
   
   staticSim(@runSim, 2)
  
@@ -17,22 +17,17 @@ function runSim(curr_val)
   % Condiguração de Variáveis
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
-  dec_factor = 2;  
-  f1 = 50;
-  f2 = 450;
+  b = 5;
+  delta = 2/(2^b - 1);
+    
+  aud_file = "../../data/conquista.wav";
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Processamento de sinal
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  s = src_sinusoid(1, f1, 0) + src_sinusoid(1, f2, 0);
-  s_dec = decimate(s, dec_factor);
-  s_down = downsample(s, dec_factor);
+  aud_sig = aud_audioRead(aud_file);
+  [aud_q,integer_codeword,levels] = digproc_quantizer(aud_sig,b);
+  aud_audioPlay(aud_q, 1);
   
-  S = abs(fft(s));  
-  S_DEC = fft(s_dec);
-  S_DOWN = fft(s_down);
-  
-  sk_freqSubPlot({S, S_DEC, S_DOWN}, {"S", "S_DEC", "S_DOWN"}, {500, 250, 250}, 1);
-    
 end

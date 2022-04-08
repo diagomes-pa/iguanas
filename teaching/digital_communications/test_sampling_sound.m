@@ -2,7 +2,7 @@ function test_sampling_sound()
   
   %% Configura as variáveis fundamentais
   global v;
-  v = setFundVars(0.001, 10);
+  v = setFundVars(0.001, 20);
   
   staticSim(@runSim, 2)
  
